@@ -1,19 +1,26 @@
 
 <?php
 //Função responsável por criar uma nova linha na tabela
-function linha()
-{
-    echo "
-        <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        </tr>
-    ";
+
+
+function linha($semana)
+{   
+    $hoje = date('d');
+    echo "<tr>";
+    for ($i = 0; $i < 7; $i++){
+        if(isset($semana[$i])){
+            if($semana[$i] == $hoje){
+                echo "<td><b>{$semana[$i]}</b></td>";
+            } 
+            else{
+                echo "<td>{$semana[$i]}</td>";
+            }
+        }
+        else{
+            echo "<td></td>";
+        }
+    }
+    echo "</tr>";
 }
 //Função responsável por desenhar o calendário
 function calendario()
@@ -32,8 +39,10 @@ function calendario()
             linha($semana);
             $semana = array();
         }
+        
         $dia++;
     }
+    linha($semana);
 }
 ?>
 <table border="1">
@@ -46,10 +55,5 @@ function calendario()
         <th>Sex</th>
         <th>Sáb</th>
     </tr>
-    <?php linha(); ?>
-    <?php linha(); ?>
-    <?php linha(); ?>
-    <?php linha(); ?>
-    <?php linha(); ?>
+    <?php calendario(); ?>
 </table>
-
